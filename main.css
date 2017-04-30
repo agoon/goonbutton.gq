@@ -1,0 +1,35 @@
+.main {
+    text-align: center;
+}
+
+#gameArea {
+    border: solid;
+    border-width: 1px;
+    padding: 15em 15em;
+    visibility: hidden;
+}
+
+#buttonArea {
+    padding: 5em 5em;
+}
+
+.button {
+    padding: 60px 60px;
+    cursor: pointer;
+    outline: none;
+    color: #FFF;
+    background-color: #3371EC;
+    border: none;
+    border-radius: 60px;
+    box-shadow: 0 12px #999;
+}
+
+.button:hover {
+    background-color: #3268D2;
+}
+
+.button:active {
+    background-color: #3268D2;
+    box-shadow: 0 10px #666;
+    transform: translateY(4px);
+}
