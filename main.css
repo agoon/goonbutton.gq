@@ -2,13 +2,14 @@
     text-align: center;
 }
 
-.game_area {
+#gameArea {
     border: solid;
     border-width: 1px;
     padding: 15em 15em;
+    visibility: hidden;
 }
 
-.button_area {
+#buttonArea {
     padding: 5em 5em;
 }
 
