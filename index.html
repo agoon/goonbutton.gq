@@ -100,12 +100,38 @@
                             
                             // Reset cooldown and add delay for spikes to be added
                             cooldown = 30;
-                            delay = 70;
+                            delay = 60;
                         }
                     }
                     
                     else if (buttonPhase == 2) {
+                        // Reset score
+                        document.getElementById("score").innerHTML = "Score: 0";
+                        score = 0;
                         
+                        // Reset next clear
+                        document.getElementById("nextClear").innerHTML = "Next Clear: 30";
+                        cooldown = 30;
+                        delay = 60;
+                        time = 0;
+                        
+                        // Clear canvas
+                        ctx.clearRect(0, 0, width, height);
+                            
+                        // Remove all spikes
+                        spikes = [];
+
+                        // Reset player
+                        player.x = width/2;
+                        player.y = height - 5;
+                        player.velX = 0;
+                        player.velY = 0;
+                        ctx.fillStyle = "#3371EC";
+                        ctx.fillRect(player.x, player.y, player.width, player.height);
+                        
+                        // Restart game
+                        buttonPhase = 1;
+                        lose = false;
                     }
                 }
                 
@@ -265,10 +291,10 @@
             </div>
 
             <div id="buttonArea">
-                <div style="width: 30%; float:left">
+                <div style="width: 33%; float:left">
                     <h1 id="score">Score: 0</h1>
                 </div>
-                <div style="width: 70%; float:right">
+                <div style="width: 66%; float:right">
                     <div style="width: 50%; float:left">
                         <button class="button" id="theButton"></button>
                     </div>
