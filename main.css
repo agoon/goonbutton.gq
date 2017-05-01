@@ -19,6 +19,11 @@
     visibility: hidden;
 }
 
+#textOverCanvas {
+    visibility: hidden;
+    text-align: center;
+}
+
 .button {
     padding: 60px 60px;
     cursor: pointer;
