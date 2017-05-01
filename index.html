@@ -67,8 +67,11 @@
                 friction = .9,
                 gravity = 0.5,
                 updates = 0,
+                time = 0,
+                cooldown = 30,
                 score = 0,
                 buttonPhase = 0,
+                delay = 60;
                 lose = true;
                 
                 canvas.width = width;
@@ -81,6 +84,28 @@
                         document.getElementById("nextClear").style.visibility = "visible";
                         lose = false;
                         buttonPhase++;
+                    }
+                    
+                    else if (buttonPhase == 1) {
+                        if (cooldown == 0) {
+                            // Clear canvas
+                            ctx.clearRect(0, 0, width, height);
+                            
+                            // Remove all spikes
+                            spikes = [];
+
+                            // Redraw player
+                            ctx.fillStyle = "#3371EC";
+                            ctx.fillRect(player.x, player.y, player.width, player.height);
+                            
+                            // Reset cooldown and add delay for spikes to be added
+                            cooldown = 30;
+                            delay = 70;
+                        }
+                    }
+                    
+                    else if (buttonPhase == 2) {
+                        
                     }
                 }
                 
@@ -137,8 +162,8 @@
                             player.jumping = false;
                         }
 
-                        // Add spikes if enough updates have passed
-                        if (updates >= 3) {
+                        // Add spikes if enough updates have passed or delay is not set
+                        if (updates >= 3 && delay == 0) {
                             spikes.push({
                                 x : 0,
                                 y : 0,
@@ -172,10 +197,12 @@
                                 if (spikes[i].x >= player.x && spikes[i].x <= player.x + player.width) {
                                     if (spikes[i].y >= player.y && spikes[i].y <= player.y + player.height) {
                                         lose = true;
+                                        buttonPhase++;
                                     }
 
                                     else if (spikes[i].y + spikes[i].height >= player.y && spikes[i].y + spikes[i].height <= player.y + player.height) {
                                         lose = true;
+                                        buttonPhase++;
                                     }
                                 }
 
@@ -183,10 +210,12 @@
                                 else if (spikes[i].x + spikes[i].width >= player.x && spikes[i].x + spikes[i].width <= player.x + player.width) {
                                     if (spikes[i].y >= player.y && spikes[i].y <= player.y + player.height) {
                                         lose = true;
+                                        buttonPhase++;
                                     }
 
                                     else if (spikes[i].y + spikes[i].height >= player.y && spikes[i].y + spikes[i].height <= player.y + player.height) {
                                         lose = true;
+                                        buttonPhase++;
                                     }
                                 }
                             }
@@ -204,8 +233,22 @@
                         for(var i = 0; i < spikes.length; i++) {
                             ctx.fillRect(spikes[i].x, spikes[i].y, spikes[i].width, spikes[i].height);
                         }
+                        
+                        if (time >= 60) {
+                            if (cooldown > 0) {
+                                cooldown--;
+                                document.getElementById("nextClear").innerHTML = "Next Clear: " + cooldown;
+                            }
+                            
+                            time = 0;
+                        }
 
                         updates++;
+                        time++;
+                        
+                        if (delay > 0) {
+                            delay--;
+                        }
                     }
                     
                     // Call update again upon next animation frame
@@ -231,7 +274,7 @@
                     </div>
                     
                     <div style="width: 50%; float:right">
-                        <h1 id="nextClear">Next Clear: </h1>
+                        <h1 id="nextClear">Next Clear: 30</h1>
                     </div>
                 </div>
             </div>
