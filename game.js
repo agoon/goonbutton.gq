@@ -67,7 +67,7 @@ function init() {
         buttonArea = document.getElementById("buttonArea"),
         ctx = canvas.getContext("2d"),
         width = window.innerWidth * .85,
-        height = window.innerHeight * .7;
+        height = window.innerHeight * .65;
 
     canvas.width = width;
     canvas.height = height;
@@ -176,7 +176,7 @@ function init() {
     function windowResized(e) {
         // Resize canvas and area
         width = window.innerWidth * .85;
-        height = window.innerHeight * .7;
+        height = window.innerHeight * .65;
         canvas.width = width;
         canvas.height = height;
         buttonArea.width = window.innerWidth * .9;
