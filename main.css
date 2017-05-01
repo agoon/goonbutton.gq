@@ -15,6 +15,14 @@
     padding: 2em 2em;
 }
 
+#score {
+    visibility: hidden;
+}
+
+#nextClear {
+    visibility: hidden;
+}
+
 .button {
     padding: 60px 60px;
     cursor: pointer;
