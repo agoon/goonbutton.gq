@@ -111,6 +111,7 @@ function init() {
             document.getElementById("gameArea").style.visibility = "visible";
             document.getElementById("score").style.visibility = "visible";
             document.getElementById("nextClear").style.visibility = "visible";
+            document.getElementById("textOverCanvas").style.visibility = "visible";
             
             // Unpause game and move to next button phase
             pause = false;
@@ -162,6 +163,9 @@ function init() {
             player.velY = 0;
             ctx.fillStyle = "#3371EC";
             ctx.fillRect(player.x, player.y, player.width, player.height);
+            
+            // Change Game Over! text back to instruction text
+            document.getElementById("textOverCanvas").innerHTML = 'Press A to move left, D to move right and W to jump! Use the button to clear the screen when "Next Clear" hits 0!';
 
             // Restart game
             buttonPhase = 1;
@@ -299,11 +303,13 @@ function init() {
                         if (spikes[i].y >= player.y && spikes[i].y <= player.y + player.height) {
                             pause = true;
                             buttonPhase++;
+                            document.getElementById("textOverCanvas").innerHTML = "Game Over!";
                         }
 
                         else if (spikes[i].y + spikes[i].height >= player.y && spikes[i].y + spikes[i].height <= player.y + player.height) {
                             pause = true;
                             buttonPhase++;
+                            document.getElementById("textOverCanvas").innerHTML = "Game Over!";
                         }
                     }
 
@@ -312,11 +318,13 @@ function init() {
                         if (spikes[i].y >= player.y && spikes[i].y <= player.y + player.height) {
                             pause = true;
                             buttonPhase++;
+                            document.getElementById("textOverCanvas").innerHTML = "Game Over!";
                         }
 
                         else if (spikes[i].y + spikes[i].height >= player.y && spikes[i].y + spikes[i].height <= player.y + player.height) {
                             pause = true;
                             buttonPhase++;
+                            document.getElementById("textOverCanvas").innerHTML = "Game Over!";
                         }
                     }
                 }
