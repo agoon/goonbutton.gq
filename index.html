@@ -5,12 +5,133 @@
         <link rel="stylesheet" type="text/css" href="main.css"/>
         
         <script>
+            (function() {
+                var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+                window.requestAnimationFrame = requestAnimationFrame;
+            })();
+            
             document.addEventListener('DOMContentLoaded', init);
             function init() {
                 document.getElementById("theButton").addEventListener("click", theButtonClicked);
+                document.addEventListener("keydown", function(e) {
+                    if (e.keyCode == 65) {
+                        keys.left = true;
+                    }
+                    
+                    else if (e.keyCode == 68) {
+                        keys.right = true;
+                    }
+                    
+                    else if (e.keyCode == 87) {
+                        keys.up = true;
+                    }
+                });
+                document.addEventListener("keyup", function(e) {
+                    if (e.keyCode == 65) {
+                        keys.left = false;
+                    }
+                    
+                    else if (e.keyCode == 68) {
+                        keys.right = false;
+                    }
+                    
+                    else if (e.keyCode == 87) {
+                        keys.up = false;
+                    }
+                });
+                window.addEventListener("load",function(){
+                    update();
+                });
+                
+                
+                var canvas = document.getElementById("canvas"),
+                ctx = canvas.getContext("2d"),
+                width = 1500,
+                height = 500,
+                player = {
+                  x : width/2,
+                  y : height - 5,
+                  width : 20,
+                  height : 20,
+                  speed: 6,
+                  velX: 0,
+                  velY: 0,
+                  jumping: false
+                },
+                keys = {
+                    up : false,
+                    left: false,
+                    right: false
+                }
+                friction = .9,
+                gravity = 0.5;
+                
+                canvas.width = width;
+                canvas.height = height;
                 
                 function theButtonClicked() {
                     document.getElementById("gameArea").style.visibility = "visible";
+                }
+                
+                function update() {
+                    // W is pressed
+                    if (keys.up) {
+                        // If player isn't already jumping, jump
+                        if(!player.jumping) {
+                            player.jumping = true;
+                            player.velY = -player.speed*2;
+                        }
+                    }
+                    
+                    // D is pressed
+                    if (keys.right) {
+                        // If velocity in x-direction is less than maximum speed, increase it
+                        if (player.velX < player.speed) {             
+                            player.velX++;         
+                        }     
+                    }     
+                    
+                    // A is pressed
+                    if (keys.left) {
+                        // If velocity in x-direction is less than maximum speed, increase it
+                        if (player.velX > -player.speed) {
+                            player.velX--;
+                        }
+                    }
+
+                    // Introduce friction so that player doesn't keep moving without more key presses
+                    player.velX *= friction;
+                    
+                    // Introduce gravity so that player falls after jumping
+                    player.velY += gravity;
+
+                    // Move player based on current velocity
+                    player.x += player.velX;
+                    player.y += player.velY;
+                    
+                    // Don't let player go outside boundaries
+                    if (player.x >= width-player.width) {
+                        player.x = width-player.width;
+                    }
+                    
+                    else if (player.x <= 0) {         
+                        player.x = 0;     
+                    }    
+
+                    // Check if player has landed
+                    if(player.y >= height-player.height){
+                        player.y = height - player.height;
+                        player.velY = 0;
+                        player.jumping = false;
+                    }
+
+                    // Clear canvas then redraw player
+                    ctx.clearRect(0, 0, width, height);
+                    ctx.fillStyle = "#3371EC";
+                    ctx.fillRect(player.x, player.y, player.width, player.height);
+                    
+                    // Call update again upon next animation frame
+                    requestAnimationFrame(update);
                 }
             }
         </script>
@@ -19,7 +140,7 @@
     <body>
         <div class="main">
             <div id="gameArea">
-                <canvas id="canvas" width="1500" height="500"></canvas>
+                <canvas id="canvas"></canvas>
             </div>
 
             <div id="buttonArea">
