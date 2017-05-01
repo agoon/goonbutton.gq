@@ -3,14 +3,20 @@
 }
 
 #gameArea {
-    border: solid;
-    border-width: 1px;
-    padding: 15em 15em;
     visibility: hidden;
 }
 
-#buttonArea {
-    padding: 5em 5em;
+#canvas {
+    border: solid;
+    border-width: 1px;
+}
+
+#score {
+    visibility: hidden;
+}
+
+#nextClear {
+    visibility: hidden;
 }
 
 .button {

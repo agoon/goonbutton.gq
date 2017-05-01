@@ -4,25 +4,28 @@
         <title>Goon Button Game</title>
         <link rel="stylesheet" type="text/css" href="main.css"/>
         
-        <script>
-            document.addEventListener('DOMContentLoaded', init);
-            function init() {
-                document.getElementById("theButton").addEventListener("click", theButtonClicked);
-                
-                function theButtonClicked() {
-                    document.getElementById("gameArea").style.visibility = "visible";
-                }
-            }
-        </script>
+        <script src="game.js"></script>
     </head>
     
     <body>
         <div class="main">
             <div id="gameArea">
+                <canvas id="canvas"></canvas>
             </div>
 
             <div id="buttonArea">
-                <button class="button" id="theButton"></button>
+                <div style="width: 33%; float:left">
+                    <h1 id="score">Score: 0</h1>
+                </div>
+                <div style="width: 67%; float:right">
+                    <div style="width: 50%; float:left">
+                        <button class="button" id="theButton"></button>
+                    </div>
+                    
+                    <div style="width: 50%; float:right">
+                        <h1 id="nextClear">Next Clear: 30</h1>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
